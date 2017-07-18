@@ -1,0 +1,63 @@
+version: "3"
+
+services:
+  #######################################
+  # Postgres: The database used by Kong
+  #######################################
+  postgres:
+    image: "postgres:9.4"
+    restart: always
+    env_file: config/postgres.env
+
+  #######################################
+  # Kong: The API Gateway
+  #######################################
+  kong:
+    image: "kong:latest"
+    restart: always
+    env_file: config/kong.env
+    depends_on:
+      - postgres
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001"]
+      interval: 5s
+      timeout: 2s
+      retries: 15
+    ports:
+      - "${KONG_PORT:-8001}:8001"
+      - "${API_PORT:-8000}:8000"
+
+  #######################################
+  # Konga: Kong GUI
+  #######################################
+  konga:
+    image: "pantsel/konga:latest"
+    restart: always
+    env_file: config/konga.env
+    depends_on:
+      - kong
+    ports:
+      - "${KONGA_PORT:-1337}:1337"
+  
+  #######################################
+  # Kong Docker Daemon
+  #######################################
+  kdd:
+    build:
+      context: .
+    image: ncarlier/kong-docker-daemon
+    restart: always
+    env_file: config/kong-docker-daemon.env
+    depends_on:
+      - kong
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  #######################################
+  # Sample API container
+  #######################################
+  sample:
+    image: infrastructureascode/hello-world
+    labels:
+      - "kong.upstream=sample.foo"
+

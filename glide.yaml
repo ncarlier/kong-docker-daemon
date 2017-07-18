@@ -1,0 +1,10 @@
+package: github.com/ncarlier/kong-docker-daemon
+import:
+- package: github.com/docker/docker
+  version: ^17.5.0-ce-rc3
+  subpackages:
+  - api/types
+  - api/types/events
+  - client
+- package: github.com/sirupsen/logrus
+  version: ^1.0.2
