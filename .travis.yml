@@ -1,0 +1,35 @@
+sudo: required
+
+services:
+  - docker
+
+language: go
+
+go:
+  - '1.8'
+
+env:
+  global:
+    - secure: "Qg6XJzS4pKt060k6/yEJR2cUvGXN9y2kb956wFcNMXf/TBHT+Jg6iwqImeYMeo50c20dx2FbD5Ta3W66HILLAzub3jzduBfNUc1iClVlKLW6O39xkVbcZA1G7o7YXOFtH2KUrEfJGbdPwgPWdjs018AbP1dNelatxpLu4gV2QcLzw+Dt7kuFa5/pN7IZfCcjWNT++kBwK1sBorP8gixPPEFmogENSK32izmgbWyK1UcSDpRApVjItaK9M3tWKzzgrCMiu5A3I/BT5YUbxwJprSUAoWhk8j8GDn6Eqqx1Kve07FjSqktplSZDyI/1zeB6RWBTDbkE/QQXHGakXD+zn9KCgOSX0eoC/r1PdRZ5eXj/mO8/hkFjlFFy7t3C/ZIUV21oXJn/xnbvttBZIQlj9q+4Ag7jal3ISmRAVhL3fgqlr5no+NZ2JrgxynfMboQ9AsOZHj2MggmWIEJfr8hdsAzMrvubatNZOfM+8kry5KdYV08hATADGp7VLw1tPsMYmhAgz8CCftz7p0VHqGvaF2Szcm8yb2G4gFySYZfrKjqFjUg+PLHv8SmFp19TZWDiOzd7SL3Ll5LnsbDSX9ma45GtlG1pdcn6c6gSlqpNHaxVUwBZFikjy6So4ngoKNfApbrzOBSANlb+zstii30D1TmDk9pC6Scb+1WlsNL5TvM="
+    - secure: "lnkv2JZOdfAs6cBYG8MLXM+loqn4ylYLeCBfTj+p4AKALZ5XJb0Tqb9J9Dgg1pP/Hy+3Glf33EJsQGE/qDJn5oEvJx1xFA+nXUTNyNZTV0BFGaQjlScOuizFYXcNNZk7y+HMQchk5Hxb8va9FZuQNrmgGThzgJm+1foGwJSMGA6cwUhcL/tIsMeI8a2Vz8KYVQbhFiPc7Qex7JaWXK8uZkg++nBuvmbr3cH9QKoLq4N0Dl5RLHc7IOvRMufVZ4hK8wXbjxTecvMzVlbnM7GgOdJDqyV66xr/istKj/8/6LgL09EZesXrUZflTDxmX/Sa5V4Pf+S4arsl4+hBrPNtyUafg/9MHHhTi/7IR2YYJFydXin+v04zIabSmyflknYaj0S26VOAM8gp1IfmBahiWWPzpvdr1A2Cny1VUGvcH+TBCbtwTgsdot14RPcMJxZUTUv2nfvQdlYAenOQppZjTYepNPhc6hTfJFYzH4FN741Ci9UTBYdPOyc/+zhrVQoChSl+IvhF0PWfzhgs83fKmPAzV+UrE4CDS+GBusfVznudHJpKaA3NfKQadXpZlZnCGUGyhPMqEBzXhbaVebProEjJqNFYmIUUiO42f/K4y6cRlLNfYzrXl4Y2stcDQxM1qyBCWS8Kjzw5RdJqsFE60FFJTwbAjHkRwQDTR3LO0Lc="
+    - secure: "QKsV8Z0CRxTu3y5e1xJvuUKHf8hjEwyYp9z9ZdtX6lrlBArsAEC/Xj+xOFp66/w2/ZDqga3XgBcc1wYDpEpol+2ws3lkgTaDPN8zP+wx2A4NN7/3AbyF3i85e8zjXEfY8+hPZgt+8bN+U/DrluMhTQ632/le3V28U6AWmsdsQwKfhAQdUUENa0pcr8A8GKlJVqgLP7fSl0lPOy1HhYDOaRqJHvQmVG5e+nvgvXHlQ982Ix2kiawN6FT4MW+ksIX8tEGWQiLIr9BQl5p/eUv31DkiiSOxHpDqlOK10Gq9mm7Yf5BWBJyp3PQzNY5mUWV+nrkB2dlZfe0yxVRTc2cK3rKohWunpyCSJdSY0Ur85Gvr8L61d/RFB9bX+HzAnRVIXgwIdxOFZNKz3AQe4d6rO1qujJZ77kzG9K1EEbDU1PktuPmoh+Nv0OBwVMHfBbZ9wjd0bARLNbnPE+5UpzX8VxRqKIN5NmkL37drVEB+RFDX/gJsM3MYjGzSxzPvcoSSlTPNULVzHTfLtjIomeixwKJ72AXtHTNL/VpQN6Ph+ImbaDTb/JKmt6wvxK6t2yxYez4sMW5CCAXM5Qvm1fZnXGkQ3M/vYobVYVTzSFgDdCyi48CEFsDQc4ajflsytM2S6QzWXg41HncxJpS2Sr0yjge+iz7vvARn4qke3WWtfr8="
+    - COMMIT=${TRAVIS_COMMIT::8}
+
+deploy:
+  provider: releases
+  api_key:
+    secure: 5QO9L/1713lJC6FqR0R45oBM/hJyJSgHnoI7svjGF5AzjWhRl3OfAc5ZwyZRXBWIu+WCn470qxkNN/PPJyPAnNjiVqmN1kE5JJAZfpFIc/9vAhqJIIoT1DGIICmQ0pO2BXASRxwx9XC9rhqKZqAZ5OiPQQiijYUmCw/E7E35B3COvbLKMc/79O50Wx7JMU6+x/swbbcg2PCR/8TTZQ9iiLEXf9xlNckalpEsi/s/0uJ4lub8YzF4n1O51bXIxqYwwxM4vFwm/KjHXMOe82TG8Um2kWRAcMQBhX5x/pVcMwThpuUjqK/2gRSklazQv3EemEDltNBUsSl/VOKYAce9/ROnA9Uf11yrp8iWg3rtIWbDjLLzB9eGof2hmcwVgcWMryeQfGdmuUw6Jh2uGnDIxkXp1Z3+rSlWVFjzKsSHtKCcAK4BpwmL0mhWQH2WRu/Tm1IoTw6AP5W+DhmyoNuXsyGTkT9s/aKqAodQ3BPCgGyxm6hSFWcib2Ecf5WCJ17i0pqI75/5vX+mW9hRFu1Vhx11lADUpx4ips6BHKd6V4272kMglaFCDNN5MFlcUXaKqh3NxoFP20g8ZAUdIIg46aoqN6w6ohL5VLcn/FoZK7WWkOF06HSXTgX+90A7XN9gablh7deVMUJMi6lrwInPOP/dI5TKvUAFWlSPlWDGrhs=
+  file:
+    - release/kong-docker-daemon-linux-amd64
+  on:
+    repo: ncarlier/kong-docker-daemon
+    tags: true
+
+after_success:
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=ncarlier/kong-docker-daemon
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $REPO
