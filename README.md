@@ -10,7 +10,7 @@ Start the sidekick container:
 ```bash
 $ docker run -d \
     --volume /var/run/docker.sock:/var/run/docker.sock \
-    ncarlier/kong-docker-target
+    ncarlier/kong-docker-daemon
 ```
 
 Now if you start a container exposing a port and having the label
