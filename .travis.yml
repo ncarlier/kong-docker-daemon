@@ -15,6 +15,9 @@ env:
     - secure: "QKsV8Z0CRxTu3y5e1xJvuUKHf8hjEwyYp9z9ZdtX6lrlBArsAEC/Xj+xOFp66/w2/ZDqga3XgBcc1wYDpEpol+2ws3lkgTaDPN8zP+wx2A4NN7/3AbyF3i85e8zjXEfY8+hPZgt+8bN+U/DrluMhTQ632/le3V28U6AWmsdsQwKfhAQdUUENa0pcr8A8GKlJVqgLP7fSl0lPOy1HhYDOaRqJHvQmVG5e+nvgvXHlQ982Ix2kiawN6FT4MW+ksIX8tEGWQiLIr9BQl5p/eUv31DkiiSOxHpDqlOK10Gq9mm7Yf5BWBJyp3PQzNY5mUWV+nrkB2dlZfe0yxVRTc2cK3rKohWunpyCSJdSY0Ur85Gvr8L61d/RFB9bX+HzAnRVIXgwIdxOFZNKz3AQe4d6rO1qujJZ77kzG9K1EEbDU1PktuPmoh+Nv0OBwVMHfBbZ9wjd0bARLNbnPE+5UpzX8VxRqKIN5NmkL37drVEB+RFDX/gJsM3MYjGzSxzPvcoSSlTPNULVzHTfLtjIomeixwKJ72AXtHTNL/VpQN6Ph+ImbaDTb/JKmt6wvxK6t2yxYez4sMW5CCAXM5Qvm1fZnXGkQ3M/vYobVYVTzSFgDdCyi48CEFsDQc4ajflsytM2S6QzWXg41HncxJpS2Sr0yjge+iz7vvARn4qke3WWtfr8="
     - COMMIT=${TRAVIS_COMMIT::8}
 
+install:
+  - go get -v github.com/Masterminds/glide
+
 deploy:
   provider: releases
   api_key:
