@@ -1,7 +1,7 @@
 # Kong Docker Daemon
 
-This is a sidekick docker daemon used to automatically declare upstreams and
-targets into Kong.
+This is a sidekick [Docker][docker] daemon used to automatically declare
+upstreams and targets into [Kong][kong].
 
 ## Usage
 
@@ -35,9 +35,10 @@ $ make deploy logs
 
 This command will deploy the following Docker stack:
 
-- A PostgreSQL instance
+- A [PostgreSQL](postgresql) instance
 - A Kong instance using PostgreSQL as database backend
-- A Konga instance allowing you to explore and configure Kong with a [GUI](http://localhost:1337)
+- A [Konga](konga) instance allowing you to explore and configure Kong with a
+  pretty GUI (http://localhost:1337)
 - A HelloWorld sample API backend with `sample.foo` as upstream name
 - And this sidekick daemon
 
@@ -61,3 +62,8 @@ $ ...
 
 
 ---
+
+[docker]: https://www.docker.com/
+[kong]: https://getkong.org
+[konga]: https://github.com/pantsel/konga
+[postgresql]: https://www.postgresql.org/
