@@ -1,15 +1,21 @@
 .SILENT :
-.PHONY : clean build
 
 # App name
 APPNAME=kong-docker-daemon
 
-# Base image
-BASEIMAGE=golang:1.8
-
 # Go configuration
 GOOS?=linux
 GOARCH?=amd64
+
+# Add exe extension if windows target
+is_windows:=$(filter windows,$(GOOS))
+EXT:=$(if $(is_windows),".exe","")
+
+# Go app path
+APP_BASE=${GOPATH}/src/github.com/ncarlier
+
+# Artefact name
+ARTEFACT=release/$(APPNAME)-$(GOOS)-$(GOARCH)$(EXT)
 
 # Extract version infos
 VERSION:=`git describe --tags`
@@ -21,34 +27,41 @@ all: build
 root_dir:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 makefiles:=$(root_dir)/makefiles
 include $(makefiles)/help.Makefile
-include $(makefiles)/compose.Makefile
+include $(makefiles)/docker/compose.Makefile
+
+$(APP_BASE)/$(APPNAME):
+	echo "Creating GO src link: $(APP_BASE)/$(APPNAME) ..."
+	mkdir -p $(APP_BASE)
+	ln -s $(root_dir) $(APP_BASE)/$(APPNAME)
 
 glide.lock:
+	echo "Installing dependencies ..."
 	glide install
 
 ## Clean built files
 clean:
 	-rm -rf release
+.PHONY : clean
 
 ## Build executable
-build: glide.lock
+build: glide.lock $(APP_BASE)/$(APPNAME)
 	mkdir -p release
-	echo "Building: release/$(APPNAME)-$(GOOS)-$(GOARCH)$(EXT) ..."
-	GOOS=$(GOOS) GOARCH=$(GOARCH) go build $(LDFLAGS) -o release/$(APPNAME)-$(GOOS)-$(GOARCH)$(EXT)
+	echo "Building: $(ARTEFACT) ..."
+	cd $(APP_BASE)/$(APPNAME) && GOOS=$(GOOS) GOARCH=$(GOARCH) go build $(LDFLAGS) -o $(ARTEFACT)
+.PHONY : build
 
-## Run executable
-exec: build
-	release/$(APPNAME)-$(GOOS)-$(GOARCH)$(EXT) -v
+$(ARTEFACT): build
+
+## Install executable
+install: $(ARTEFACT)
+	echo "Installing $(ARTEFACT) to ${HOME}/.local/bin/$(APPNAME) ..."
+	cp $(ARTEFACT) ${HOME}/.local/bin/$(APPNAME)
+.PHONY : install
 
 ## Deploy containers to Docker host
-deploy: images
-	echo "Deploying infrastructure..."
-	-cat .env
-	docker-compose $(COMPOSE_FILES) up -d
-	echo "Congrats! Infrastructure deployed."
+deploy: compose-up
+.PHONY : deploy
 
 ## Un-deploy API from Docker host
-undeploy:
-	echo "Un-deploying infrastructure..."
-	docker-compose $(COMPOSE_FILES) down
-	echo "Infrastructure un-deployed."
+undeploy: compose-down
+.PHONY : undeploy
